@@ -1,0 +1,25 @@
+{
+  "name": "swiggy",
+  "version": "1.0.0",
+  "description": "this is a app by bhawna",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhawnagupta1105/Namaste-React.git"
+  },
+  "keywords": [],
+  "author": "Bhawna Gupa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bhawnagupta1105/Namaste-React/issues"
+  },
+  "homepage": "https://github.com/bhawnagupta1105/Namaste-React#readme",
+  "devDependencies": {
+    "-": "^0.0.1",
+    "D": "^1.0.0",
+    "parcel": "^2.11.0"
+  }
+}
