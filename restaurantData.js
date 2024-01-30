@@ -3695,10 +3695,6 @@ const data = [
       },
     ],
   },
-  
-
- 
-  
   {
     id: 4,
     name: "Lunch Square",
@@ -4621,7 +4617,6 @@ const data = [
       },
     ],
   },
- 
   {
     id: 5,
     name: "ASALI DHABA",
