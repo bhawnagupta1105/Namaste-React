@@ -7,34 +7,34 @@ const Body = () => {
   const [filteredRestaurant, setfilteredRestaurant] = useState([]);
   const [searchText, setsearchText] = useState("");
 
-  // useEffect(() => {
-  //     fetchData();
+  useEffect(() => {
+      fetchData();
 
-  // },[])
+  },[])
 
-  // const fetchData = async( ) => {
-  //     const data = await fetch(
-  //         "https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.84401&lng=75.803655&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-  //     );
+  const fetchData = async( ) => {
+      const data = await fetch(
+          "https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.84401&lng=75.803655&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      );
 
-  //     const json = await data.json();
+      const json = await data.json();
 
-  //     console.log(json);
-  //     //Optional Chaining
-  //     setlistofRestaurants(json?.data?.card?.card?.gridElements);
-  //     setfilteredRestaurant(json?.data?.card?.card?.gridElements);
+      console.log(json);
+      //Optional Chaining
+      setlistofRestaurants(json?.data?.cards[4].card?.card?.gridElements?.infoWithStyle?.restaurants);
+      setfilteredRestaurant(json?.data?.cards[4].card?.card?.gridElements?.infoWithStyle?.restaurants);
 
-  // };
+  };
 
-  // // Conditional Rendering
-  // if(listofRestaurants.length === 0){
-  //     return <Shimmer/>
-  // }
+  // Conditional Rendering
+//   if(listofRestaurants.length === 0){
+//       return <Shimmer/>
+//   }
 
   //instead of if else we will simply use ternary operator
   return listofRestaurants.length === 0 ? (
-    <Shimmer />
-  ) : (
+       <Shimmer/>
+  ):(
     <div className="Body">
       <div className="filter">
         <div className="Searchbar">
@@ -67,19 +67,19 @@ const Body = () => {
             setlistofRestaurants(filteredList);
             //filter he restro
 
-            console.log(resList);
+            //console.log(resList);
           }}
         >
           Top Rated Restaurants
         </button>
       </div>
-      {/* <div className="res-container">
+      <div className="res-container">
              
            {filteredRestaurant.map((restaurant) => (
-            <RestaurantCard key = {restaurant.data.id} resData = {restaurant}/>
+            <RestaurantCard key = {restaurant?.info?.id} resData = {restaurant}/>
            ))}
   
-          </div> */}
+          </div>
     </div>
   );
 };
