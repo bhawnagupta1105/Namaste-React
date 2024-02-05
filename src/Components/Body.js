@@ -35,7 +35,7 @@ const Body = () => {
   //   }
 
   //instead of if else we will simply use ternary operator
-  return listofRestaurants.length === 0 ? (
+  return listofRestaurants === 0 ? (
     <Shimmer />
   ) : (
     <div className="Body">
@@ -80,7 +80,7 @@ const Body = () => {
         {filteredRestaurant.map((restaurant) => (
           <Link
             key={restaurant?.info?.id}
-            to={"/restaurants" + restaurant.data.id}
+            to={"/restaurants" + restaurant.info.id}
           >
             {" "}
             <RestaurantCard resData={restaurant} />
