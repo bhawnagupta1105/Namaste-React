@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, {withPromotedLabel} from "./RestaurantCard";
 import resList from "../utils/mockData";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -8,6 +8,8 @@ const Body = () => {
   const [listofRestaurants, setlistofRestaurants] = useState([]);
   const [filteredRestaurant, setfilteredRestaurant] = useState([]);
   const [searchText, setsearchText] = useState("");
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
+
 
   useEffect(() => {
     fetchData();
@@ -93,8 +95,11 @@ const Body = () => {
             key={restaurant?.info?.id}
             to={"/restaurants" + restaurant.info.id}
           >
-            {" "}
-            <RestaurantCard resData={restaurant} />
+
+            {
+              restaurant.data.promoted ? <RestaurantCardPromoted/> : <RestaurantCard resData = {restaurant}/>
+            }
+
           </Link>
         ))}
       </div>
