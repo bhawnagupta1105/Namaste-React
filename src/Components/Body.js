@@ -51,9 +51,9 @@ const Body = () => {
     <Shimmer />
   ) : (
     <div className="Body">
-      <div className="filter  flex">
-        <div className="flex-wrap m-4 p-4 ">
-        <div className="search m-4 p-4">
+      <div className="filter flex flex-wrap">
+        <div className=" flex m-2 p-2 ">
+        <div className="search ">
           {/* <img className="search-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMNRGo7hXsP5ZCE5XLiLHoTiy3D1CJ6IQyorV9WAp3npDxQeZkXUb4fCz3zpPumAxChjY&usqp=CAU"></img> */}
           <input
             type="text"
@@ -75,7 +75,8 @@ const Body = () => {
             Search
           </button>
         </div>
-        <div className="search m-4 p-4 flex items-center">
+
+        <div className="search  flex items-center">
           <button
             className="px-4 py-2 bg-gray-100 rounded-lg"
             onClick={() => {
@@ -90,13 +91,27 @@ const Body = () => {
             Top Rated Restaurants
           </button>
         </div>
+      
         </div>
+        </div>
+           
         <hr></hr>
+<div className="flex">
 
-        <div className=" m-4 p-4">
+
           <h1 className="py-2 px-2 font-bold text-2xl">
             Top restaurant chains in Jaipur
           </h1>
+          <div className="float-right">
+          <button>
+          <img width="50" height="50" src="https://img.icons8.com/ios/50/circled-left-2.png" alt="circled-left-2"/>
+          </button>
+          <button>
+          <img width="50" height="50" src="https://img.icons8.com/ios/50/circled-right-2.png" alt="circled-right-2"/>
+         </button>
+        </div>
+        </div>
+        <div>
           <div className="flex ">
             {filteredRestaurant2.map((restaurant) => (
               <Link
@@ -110,7 +125,6 @@ const Body = () => {
           </div>
         </div>
         <hr></hr>
-      </div>
       <h1 className="py-2 px-2 font-bold text-2xl">
         Restaurants with online food delivery in Jaipur
       </h1>
