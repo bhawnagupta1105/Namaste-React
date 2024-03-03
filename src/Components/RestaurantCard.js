@@ -40,4 +40,4 @@ const withPromotedLabel = (RestaurantCard) => {
     );
   };
 };
-export default RestaurantCard;
+export { RestaurantCard, withPromotedLabel };
