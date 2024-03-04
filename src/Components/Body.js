@@ -1,15 +1,16 @@
 import { RestaurantCard, withPromotedLabel } from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import CardSlider from "react-card-slider-component";
 const Body = () => {
   const [listofRestaurants, setlistofRestaurants] = useState([]);
   const [filteredRestaurant, setfilteredRestaurant] = useState([]);
   const [filteredRestaurant2, setfilteredRestaurant2] = useState([]);
   const [searchText, setsearchText] = useState("");
   const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
-
+  const cardSliderRef = useRef(null);
   useEffect(() => {
     fetchData();
   }, []);
@@ -28,7 +29,7 @@ const Body = () => {
     );
     setfilteredRestaurant(
       json?.data?.cards[4].card?.card?.gridElements?.infoWithStyle?.restaurants
-    );    
+    );
     setfilteredRestaurant2(
       json?.data?.cards[1].card?.card?.gridElements?.infoWithStyle?.restaurants
     );
@@ -46,6 +47,22 @@ const Body = () => {
         LOOKS LIKE YOU'RE OFFLINE!!! PLEASE CHECK YOUR INTERNET CONNECTION
       </h1>
     );
+  const handelPrevClick = () => {
+    if (cardSliderRef.current) {
+      cardSliderRef.current.slidePrev();
+      // Add additional styling for click event
+      document.getElementById("prevButton").style.backgroundColor = "red";
+    }
+  };
+
+  const handelNextClick = () => {
+    if (cardSliderRef.current) {
+      cardSliderRef.current.slideNext();
+      // Add additional styling for click event
+      document.getElementById("nextButton").style.backgroundColor = "green";
+    }
+  };
+
   //instead of if else we will simply use ternary operator
   return listofRestaurants === 0 ? (
     <Shimmer />
@@ -53,78 +70,87 @@ const Body = () => {
     <div className="Body">
       <div className="filter flex flex-wrap">
         <div className=" flex m-2 p-2 ">
-        <div className="search ">
-          {/* <img className="search-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMNRGo7hXsP5ZCE5XLiLHoTiy3D1CJ6IQyorV9WAp3npDxQeZkXUb4fCz3zpPumAxChjY&usqp=CAU"></img> */}
-          <input
-            type="text"
-            className="border border-solid border-black"
-            value={searchText}
-            onChange={(e) => {
-              setsearchText(e.target.value);
-            }}
-          ></input>
-          <button
-            className="px-4 py-2 bg-green-100 m-4 rounded-lg"
-            onClick={() => {
-              const filteredRestaurant = listofRestaurants.filter((res) =>
-                res.data.name.toLowerCase().includes(searchText.toLowerCase())
-              );
-              setfilteredRestaurant(filteredRestaurant);
-            }}
-          >
-            Search
-          </button>
-        </div>
+          <div className="search ">
+            {/* <img className="search-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMNRGo7hXsP5ZCE5XLiLHoTiy3D1CJ6IQyorV9WAp3npDxQeZkXUb4fCz3zpPumAxChjY&usqp=CAU"></img> */}
+            <input
+              type="text"
+              className="border border-solid border-black"
+              value={searchText}
+              onChange={(e) => {
+                setsearchText(e.target.value);
+              }}
+            ></input>
+            <button
+              className="px-4 py-2 bg-green-100 m-4 rounded-lg"
+              onClick={() => {
+                const filteredRestaurant = listofRestaurants.filter((res) =>
+                  res.data.name.toLowerCase().includes(searchText.toLowerCase())
+                );
+                setfilteredRestaurant(filteredRestaurant);
+              }}
+            >
+              Search
+            </button>
+          </div>
 
-        <div className="search  flex items-center">
-          <button
-            className="px-4 py-2 bg-gray-100 rounded-lg"
-            onClick={() => {
-              const filteredList = listofRestaurants.filter(
-                (res) => res.info.avgRating > 4.5
-              );
-              console.log(filteredList);
-              setfilteredRestaurant(filteredList);
-              //filter he restro
-            }}
-          >
-            Top Rated Restaurants
-          </button>
+          <div className="search  flex items-center">
+            <button
+              className="px-4 py-2 bg-gray-100 rounded-lg"
+              onClick={() => {
+                const filteredList = listofRestaurants.filter(
+                  (res) => res.info.avgRating > 4.5
+                );
+                console.log(filteredList);
+                setfilteredRestaurant(filteredList);
+                //filter he restro
+              }}
+            >
+              Top Rated Restaurants
+            </button>
+          </div>
         </div>
-      
-        </div>
-        </div>
-           
-        <hr></hr>
-<div className="flex">
+      </div>
 
-
+      <hr></hr>
+      <div className="flex justify-between items-center">
+        <div>
           <h1 className="py-2 px-2 font-bold text-2xl">
             Top restaurant chains in Jaipur
           </h1>
-          <div className="float-right">
-          <button>
-          <img width="50" height="50" src="https://img.icons8.com/ios/50/circled-left-2.png" alt="circled-left-2"/>
+        </div>
+        <div className="flex items-center button-container">
+          <button id="prevButton" onClick={handelPrevClick}>
+            <img
+              width="50"
+              height="50"
+              src="https://img.icons8.com/ios/50/circled-left-2.png"
+              alt="circled-left-2"
+            />
           </button>
-          <button>
-          <img width="50" height="50" src="https://img.icons8.com/ios/50/circled-right-2.png" alt="circled-right-2"/>
-         </button>
+          <button id="nextButton" onClick={handelNextClick}>
+            <img
+              width="50"
+              height="50"
+              src="https://img.icons8.com/ios/50/circled-right-2.png"
+              alt="circled-right-2"
+            />
+          </button>
         </div>
+      </div>
+      <div>
+        <div className="flex ">
+          {filteredRestaurant2.map((restaurant) => (
+            <Link
+              key={restaurant?.info.id}
+              to={"/restaurants" + restaurant.info.id}
+            >
+              <RestaurantCard resData={restaurant} />
+              {}
+            </Link>
+          ))}
         </div>
-        <div>
-          <div className="flex ">
-            {filteredRestaurant2.map((restaurant) => (
-              <Link
-                key={restaurant?.info.id}
-                to={"/restaurants" + restaurant.info.id}
-              >
-                <RestaurantCard resData={restaurant} />
-                {}
-              </Link>
-            ))}
-          </div>
-        </div>
-        <hr></hr>
+      </div>
+      <hr></hr>
       <h1 className="py-2 px-2 font-bold text-2xl">
         Restaurants with online food delivery in Jaipur
       </h1>
@@ -141,4 +167,5 @@ const Body = () => {
     </div>
   );
 };
+
 export default Body;

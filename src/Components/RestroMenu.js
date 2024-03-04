@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/userRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
 const RestroMenu = () => {
-  
   const { resId } = useParams();
   // const [resInfo, setresInfo] = useState(null);
 
@@ -22,30 +22,30 @@ const RestroMenu = () => {
   //   setresInfo(json.data);
   // };
   // Or
- const resInfo = useRestaurantMenu(resId);
+  const resInfo = useRestaurantMenu(resId);
+  const [showIndex,setshowIndex] = useState(0);
   if (resInfo === null) return;
   <Shimmer />;
 
   const {} = data?.cards[0]?.card?.card?.info;
   const { itemCards } = data?.cards[2]?.cards[2]?.card?.card?.info;
+  const categories = data?.cards[2]?.cards[2]?.card?.card?.info.filter(
+    (c) => c.card?.["card"]?.["@type"] === "link of the api"
+  ); //filter wala concept aayega(33.26)
 
   return (
-    <div className="menu">
-      <h1>{name}</h1>
-      <p>{cuisines.join(",")}</p>
-      <p>{cloudinaryImageId}</p>
-      <p>{costForTwoMessage}</p>
-      <p>{avgRating}</p>
-
-      <h2>Menu</h2>
-      <ul>
-        {itemCards.map((item) => (
-          <li key={item.card.info.id}>
-            {item.card.info.name} - {"RS"}
-            {item.card.info.price / 100 || item.card.info.defaultPrice / 100}
-          </li>
-        ))}
-      </ul>
+    <div className="text-center">
+      <h1 className="font-bold my-6 text-2xl">{name}</h1>
+      <p className="font-bold text-2lg">{cuisines.join(",")}</p>
+      {/*categories accordian*/}
+      {categories.map((category,index) => {
+        <RestaurantCategory
+          key={category?.card?.card.title}
+          data={category?.card?.card}
+          showItems={index === showIndex && true}
+          setshowIndex = {() => setshowIndex(index)}
+        />;
+      })}
     </div>
   );
 };
