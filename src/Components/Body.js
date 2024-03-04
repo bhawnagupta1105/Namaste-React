@@ -49,6 +49,7 @@ const Body = () => {
     );
   const handelPrevClick = () => {
     if (cardSliderRef.current) {
+      console.log('clicked');
       cardSliderRef.current.slidePrev();
       // Add additional styling for click event
       document.getElementById("prevButton").style.backgroundColor = "red";
@@ -57,6 +58,8 @@ const Body = () => {
 
   const handelNextClick = () => {
     if (cardSliderRef.current) {
+      console.log('clicked');
+
       cardSliderRef.current.slideNext();
       // Add additional styling for click event
       document.getElementById("nextButton").style.backgroundColor = "green";

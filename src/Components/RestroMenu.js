@@ -22,29 +22,30 @@ const RestroMenu = () => {
   //   setresInfo(json.data);
   // };
   // Or
-  const resInfo = useRestaurantMenu(resId);
-  const [showIndex,setshowIndex] = useState(0);
-  if (resInfo === null) return;
-  <Shimmer />;
+  const data = useRestaurantMenu(resId);
+  const [showIndex,setshowIndex] = useState(null);
+  if (data === null) return <Shimmer/>;
+ 
 
-  const {} = data?.cards[0]?.card?.card?.info;
-  const { itemCards } = data?.cards[2]?.cards[2]?.card?.card?.info;
-  const categories = data?.cards[2]?.cards[2]?.card?.card?.info.filter(
-    (c) => c.card?.["card"]?.["@type"] === "link of the api"
+  const {name,cuisines,costForTwoMessage} = data?.cards[0]?.card?.card?.info;
+  //const { itemCards } = data?.cards[0]?.groupedCard[0]?.cardGroupMap?.REGULAR?.cards[1].card.card;
+  const categories = data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+    (c) => c.card?.["card"]?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.MenuVegFilterAndBadge"
   ); //filter wala concept aayega(33.26)
+  
 
   return (
     <div className="text-center">
       <h1 className="font-bold my-6 text-2xl">{name}</h1>
-      <p className="font-bold text-2lg">{cuisines.join(",")}</p>
+      <p className="font-bold text-2lg">{cuisines.join(",")} - {costForTwoMessage}</p>
       {/*categories accordian*/}
-      {categories.map((category,index) => {
+      {categories && categories.map((category,index) => {
         <RestaurantCategory
           key={category?.card?.card.title}
           data={category?.card?.card}
           showItems={index === showIndex && true}
           setshowIndex = {() => setshowIndex(index)}
-        />;
+        />
       })}
     </div>
   );
