@@ -22,31 +22,50 @@ const RestroMenu = () => {
   //   setresInfo(json.data);
   // };
   // Or
-  const data = useRestaurantMenu(resId);
+  const dummy = "Dummy Data";
+  const resInfo = useRestaurantMenu(resId);
   const [showIndex,setshowIndex] = useState(null);
-  if (data === null) return <Shimmer/>;
- 
+  if (resInfo === null) return;
+  <Shimmer />;
 
-  const {name,cuisines,costForTwoMessage} = data?.cards[0]?.card?.card?.info;
-  //const { itemCards } = data?.cards[0]?.groupedCard[0]?.cardGroupMap?.REGULAR?.cards[1].card.card;
+  const {} = data?.cards[0]?.card?.card?.info;
+  const { itemCards } = data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.info;
   const categories = data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
-    (c) => c.card?.["card"]?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.MenuVegFilterAndBadge"
+    (c) => c.card?.["card"]?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
   ); //filter wala concept aayega(33.26)
-  
 
+  // return (
+  //   <div className="text-center">
+  //     <h1 className="font-bold my-6 text-2xl">{name}</h1>
+  //     <p className="font-bold text-2lg">{cuisines.join(",")}</p>
+  //     {/*categories accordian*/}
+  //     {categories.map((category,index) => {
+  //       <RestaurantCategory
+  //         key={category?.card?.card.title}
+  //         data={category?.card?.card}
+  //         showItems={index === showIndex && true}
+  //         setshowIndex = {() => setshowIndex(index)}
+  //       />;
+  //     })}
+  //   </div>
+  // );
   return (
     <div className="text-center">
       <h1 className="font-bold my-6 text-2xl">{name}</h1>
-      <p className="font-bold text-2lg">{cuisines.join(",")} - {costForTwoMessage}</p>
-      {/*categories accordian*/}
-      {categories && categories.map((category,index) => {
+      <p className="font-bold text-lg">
+        {cuisines.join(", ")} - {costForTwoMessage}
+      </p>
+      {/* categories accordions */}
+      {categories.map((category, index) => (
+        // controlled component
         <RestaurantCategory
           key={category?.card?.card.title}
           data={category?.card?.card}
-          showItems={index === showIndex && true}
-          setshowIndex = {() => setshowIndex(index)}
+          showItems={index === showIndex ? true : false}
+          setshowIndex={() => setshowIndex(index)}
+          dummy={dummy}
         />
-      })}
+      ))}
     </div>
   );
 };

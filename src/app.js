@@ -1,4 +1,4 @@
-import React, { lazy , Suspense } from "react";
+import React, { lazy , Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Footer1 from "../Landing Page/Footer1";
 import Footer2 from "../Landing Page/Footer2";
@@ -9,7 +9,9 @@ import ContactUs from "./Components/ContactUs";
 import Error from "./Components/Error";
 import RestroMenu from "./Components/RestroMenu";
 import { createBrowserRouter , RouterProvider ,Outlet} from "react-router-dom";
-
+import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore"
 
 const Grocery = lazy(() => import("./Components/Grocery"));
 const Footer = () => {
@@ -20,15 +22,25 @@ const Footer = () => {
         </div>
     )
 }
-
 const AppLayout = () => {
+  const [UserName,setUserName] =useState();
+  useEffect(() => {
+    const data = {
+      name: "Bhawna Gupta"
+    }
+    setUserName(data.name)
+  },[]);
   return (
-    <div className="app">
+   
+      <UserContext.Provider value = {{loggedInUser:UserName,setUserName}}>
+      <div className="app">
         <Header/>
         <Outlet/>
-        {/* <Footer/> */}
+        <Footer/>
     </div>
-  )
+      </UserContext.Provider>
+
+  );
 };
 const appRouter = createBrowserRouter([
   {

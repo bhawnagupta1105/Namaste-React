@@ -1,9 +1,10 @@
 import { RestaurantCard, withPromotedLabel } from "./RestaurantCard";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import CardSlider from "react-card-slider-component";
+import UserContext from "../utils/UserContext";
 const Body = () => {
   const [listofRestaurants, setlistofRestaurants] = useState([]);
   const [filteredRestaurant, setfilteredRestaurant] = useState([]);
@@ -47,9 +48,10 @@ const Body = () => {
         LOOKS LIKE YOU'RE OFFLINE!!! PLEASE CHECK YOUR INTERNET CONNECTION
       </h1>
     );
+  const { loggedInUser,setUserName } = useContext(UserContext);
   const handelPrevClick = () => {
     if (cardSliderRef.current) {
-      console.log('clicked');
+      console.log("clicked");
       cardSliderRef.current.slidePrev();
       // Add additional styling for click event
       document.getElementById("prevButton").style.backgroundColor = "red";
@@ -58,7 +60,7 @@ const Body = () => {
 
   const handelNextClick = () => {
     if (cardSliderRef.current) {
-      console.log('clicked');
+      console.log("clicked");
 
       cardSliderRef.current.slideNext();
       // Add additional styling for click event
@@ -110,6 +112,16 @@ const Body = () => {
             >
               Top Rated Restaurants
             </button>
+          </div>
+          <div className="search  flex items-center">
+            <label>UserName:</label>
+            <input
+              className="border border-black p-2"
+              value={loggedInUser}
+              onChange={(e) => {
+                setUserName(e.target.value);
+              }}
+            ></input>
           </div>
         </div>
       </div>
