@@ -1,16 +1,16 @@
 import { CDN_URL } from "../utils/constants";
 
-const ItemList = (items, dummy) => {
+const ItemList = ({items}) => {
+  
 return (
-    <div>
-    <ul>
-      {items.map((item) => (
+    
+      items.map((item) => (
         <div
           key={item.card.info.id}
-          className="p-2 m-2 border-gray-200 border-b-2 text-left flex justify-between "
+          className="p-2 m-2 border-gray-200 border-b-2 text-left flex justify-between"
         >
-          <div className="w-9/12">
-            <div className="py-2">
+          <div className="w-4/6">
+            <div className="mb-3">
               <span className="font-bold">{item.card.info.name}</span>
               <span>
                 - ₹
@@ -34,10 +34,10 @@ return (
             ></img>
           </div>
         </div>
-      ))}
-    </ul>
-  </div>
-)
+      ))
+    
+
+);
 
 };
 export default ItemList;

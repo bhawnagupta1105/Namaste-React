@@ -9,7 +9,7 @@ const RestaurantCategory = ({data, showItems,setshowIndex,dummy}) => {
   return (
     <div>
       {/*Header*/}
-      <div className="w-6/12 my-4 bg-gray-50 shadow-lg p-4 ">
+      <div className=" my-4 bg-gray-50 shadow-lg p-4 ">
         <div
           className="flex justify-between cursor-pointer"
           onClick={handelClick}

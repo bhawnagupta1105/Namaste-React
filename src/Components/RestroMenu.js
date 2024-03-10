@@ -3,6 +3,7 @@ import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/userRestaurantMenu";
 import RestaurantCategory from "./RestaurantCategory";
+
 const RestroMenu = () => {
   const { resId } = useParams();
   // const [resInfo, setresInfo] = useState(null);
@@ -23,16 +24,21 @@ const RestroMenu = () => {
   // };
   // Or
   const dummy = "Dummy Data";
-  const resInfo = useRestaurantMenu(resId);
-  const [showIndex,setshowIndex] = useState(null);
-  if (resInfo === null) return;
+  const data = useRestaurantMenu(resId);
+  const [showIndex, setshowIndex] = useState(null);
+  if (data === null) return;
   <Shimmer />;
 
-  const {} = data?.cards[0]?.card?.card?.info;
-  const { itemCards } = data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.info;
-  const categories = data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
-    (c) => c.card?.["card"]?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-  ); //filter wala concept aayega(33.26)
+  const { name, cuisines, costForTwoMessage } =
+    data?.cards[0]?.card?.card?.info;
+  const { itemCards } =
+    data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
+  const categories =
+    data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+      (c) =>
+        c.card?.["card"]?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    ); //filter wala concept aayega(33.26)
 
   // return (
   //   <div className="text-center">
@@ -50,22 +56,29 @@ const RestroMenu = () => {
   //   </div>
   // );
   return (
-    <div className="text-center">
-      <h1 className="font-bold my-6 text-2xl">{name}</h1>
-      <p className="font-bold text-lg">
-        {cuisines.join(", ")} - {costForTwoMessage}
-      </p>
-      {/* categories accordions */}
-      {categories.map((category, index) => (
-        // controlled component
-        <RestaurantCategory
-          key={category?.card?.card.title}
-          data={category?.card?.card}
-          showItems={index === showIndex ? true : false}
-          setshowIndex={() => setshowIndex(index)}
-          dummy={dummy}
-        />
-      ))}
+    <div className="w-7/12 mx-auto">
+      <div className="mx-4 py-8"> 
+        <div className="mb-4">
+          <h1 className="font-bold my-6 text-2xl">{name}</h1>
+          <p className="font-bold text-lg">
+            {cuisines.join(", ")} - {costForTwoMessage}
+          </p>
+          <div className="menu">
+          {/* categories accordions */}
+          {categories.map((category, index) => (
+            // controlled component
+            <RestaurantCategory
+              key={category?.card?.card.title}
+              data={category?.card?.card}
+              showItems={index === showIndex ? true : false}
+              setshowIndex={() => setshowIndex(index)}
+              // dummy={dummy}
+            />
+
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

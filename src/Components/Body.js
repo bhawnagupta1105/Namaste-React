@@ -69,10 +69,10 @@ const Body = () => {
   };
 
   //instead of if else we will simply use ternary operator
-  return listofRestaurants === 0 ? (
+  return listofRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="Body">
+    <div className="Body justify-center align-items">
       <div className="filter flex flex-wrap">
         <div className=" flex m-2 p-2 ">
           <div className="search ">
@@ -157,7 +157,7 @@ const Body = () => {
           {filteredRestaurant2.map((restaurant) => (
             <Link
               key={restaurant?.info.id}
-              to={"/restaurants" + restaurant.info.id}
+              to={"/restaurants/" + restaurant.info.id}
             >
               <RestaurantCard resData={restaurant} />
               {}
@@ -173,7 +173,7 @@ const Body = () => {
         {filteredRestaurant.map((restaurant) => (
           <Link
             key={restaurant?.info?.id}
-            to={"/restaurants" + restaurant.info.id}
+            to={"/restaurants/" + restaurant.info.id}
           >
             {<RestaurantCard resData={restaurant} />}
           </Link>
