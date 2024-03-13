@@ -10,6 +10,7 @@ import Error from "./Components/Error";
 import RestroMenu from "./Components/RestroMenu";
 import { createBrowserRouter , RouterProvider ,Outlet} from "react-router-dom";
 import UserContext from "./utils/UserContext";
+import Search from "./Components/Search";
 // import { Provider } from "react-redux";
 // import appStore from "./utils/appStore"
 
@@ -63,6 +64,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/grocery",
         element: <Suspense fallback = {<h1>Loading ...</h1>}><Grocery/></Suspense>
+      },
+      {
+        path: "/search",
+        element: <Search/>
       },
       {
         path: "/restaurants/:resId",

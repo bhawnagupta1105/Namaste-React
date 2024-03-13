@@ -72,6 +72,8 @@ const Body = () => {
   return listofRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
+
+    <div className="mt-[130px] max-w-[1180px] mx-auto">
     <div className="flex justify-center items-center h-screen">
       <div className="filter flex flex-wrap">
         <div className=" flex m-2 p-2 ">
@@ -179,6 +181,7 @@ const Body = () => {
           </Link>
         ))}
       </div>
+    </div>
     </div>
   );
 };

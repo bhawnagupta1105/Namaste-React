@@ -34,8 +34,8 @@ const Header = () => {
           <li className="px-4">
             <Link to="/grocery">GROCERY</Link>
           </li> */}
-          <li className="px-4">
-            <Link className="flex" to="">
+          <li className={` mr-[60px] font-semibold ${searchMatch && "text-[#fc8019]"} hover:text-[#fc8019] group`}>
+            <Link className="flex" to="/search">
               <span className="mr-2.5">
                 <svg
                   className={`fill-[#3d4152] ${
@@ -52,7 +52,7 @@ const Header = () => {
               <span>Search</span>
             </Link>
           </li>
-          <li className="px-4">
+          <li className={` mr-[60px] font-semibold ${offerstMatch && "text-[#fc8019]"} hover:text-[#fc8019] group`}>
             <Link className="flex" to="">
               <span className="mr-2.5">
                 <svg
@@ -70,7 +70,7 @@ const Header = () => {
               <span>Offers</span>
             </Link>
           </li>{" "}
-          <li className="px-4">
+          <li className={` mr-[60px] font-semibold ${supportMatch && "text-[#fc8019]"} hover:text-[#fc8019] group`}>
             <Link className="flex" to="">
               <span className="mr-2.5">
                 <svg
@@ -88,7 +88,7 @@ const Header = () => {
               <span>Help</span>
             </Link>
           </li>
-          <li className="px-4">
+          <li className={`mr-[60px] font-semibold hover:text-[#fc8019] group`}>
             <Link className="flex" to="">
               <span className="mr-2.5">
                 <svg
@@ -104,7 +104,7 @@ const Header = () => {
               <span>Sign In</span>
             </Link>
           </li>{" "}
-          <li className="px-4">
+          <li className={` mr-[60px] font-semibold ${checkoutMatch  && "text-[#fc8019]"} hover:text-[#fc8019] group`}>
             <Link className="flex" to="">
               <span className="mr-2.5 flex relative">
                 <svg
