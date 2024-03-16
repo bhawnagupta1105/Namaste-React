@@ -1,11 +1,14 @@
-import logoSvg from "../../Assets/swiggy.svg"
+import logoSvg from "../../Assets/swiggy.svg";
 import { useState, useContext } from "react";
 import { Link, useMatch } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 const Header = () => {
   //`const btnName = "LOGIN";
 
+  //Subscribing to the store using the selector
+const cartItems = useSelector((store) => store.cart.items)
   const [btnName, setbtnName] = useState("LOGIN");
 
   const { loggedInUser } = useContext(UserContext);
@@ -21,8 +24,10 @@ const Header = () => {
           <img className="" src={logoSvg} alt="" />
         </Link>
         <span></span>
+      <Link className="mt-7">
         <span>Home</span>
-    
+      </Link>
+
         <ul className="flex flex-1 justify-end items-center h-full text-sm">
           {/* <li className="px-4">Online Status: {onlineStatus ? "✅" : "🛑"}</li> */}
           {/* <li className="px-4">
@@ -34,7 +39,11 @@ const Header = () => {
           <li className="px-4">
             <Link to="/grocery">GROCERY</Link>
           </li> */}
-          <li className={` mr-[60px] font-semibold ${searchMatch && "text-[#fc8019]"} hover:text-[#fc8019] group`}>
+          <li
+            className={` mr-[60px] font-semibold ${
+              searchMatch && "text-[#fc8019]"
+            } hover:text-[#fc8019] group`}
+          >
             <Link className="flex" to="/search">
               <span className="mr-2.5">
                 <svg
@@ -52,7 +61,11 @@ const Header = () => {
               <span>Search</span>
             </Link>
           </li>
-          <li className={` mr-[60px] font-semibold ${offerstMatch && "text-[#fc8019]"} hover:text-[#fc8019] group`}>
+          <li
+            className={` mr-[60px] font-semibold ${
+              offerstMatch && "text-[#fc8019]"
+            } hover:text-[#fc8019] group`}
+          >
             <Link className="flex" to="">
               <span className="mr-2.5">
                 <svg
@@ -70,7 +83,11 @@ const Header = () => {
               <span>Offers</span>
             </Link>
           </li>{" "}
-          <li className={` mr-[60px] font-semibold ${supportMatch && "text-[#fc8019]"} hover:text-[#fc8019] group`}>
+          <li
+            className={` mr-[60px] font-semibold ${
+              supportMatch && "text-[#fc8019]"
+            } hover:text-[#fc8019] group`}
+          >
             <Link className="flex" to="">
               <span className="mr-2.5">
                 <svg
@@ -104,8 +121,12 @@ const Header = () => {
               <span>Sign In</span>
             </Link>
           </li>{" "}
-          <li className={` mr-[60px] font-semibold ${checkoutMatch  && "text-[#fc8019]"} hover:text-[#fc8019] group`}>
-            <Link className="flex" to="">
+          <li
+            className={` mr-[60px] font-semibold ${
+              checkoutMatch && "text-[#fc8019]"
+            } hover:text-[#fc8019] group`}
+          >
+            <Link className="flex" to="/cart">
               <span className="mr-2.5 flex relative">
                 <svg
                   className={`fill-[#60b246] group-hover:fill-[#fc8019] ${
@@ -122,7 +143,7 @@ const Header = () => {
                   {/* {cartItems?.length} */}
                 </span>
               </span>
-              <span>Cart</span>
+              <span>Cart({cartItems.length})</span>
             </Link>
           </li>
           {/* <button
@@ -141,10 +162,8 @@ const Header = () => {
           ></img> */}
           <li className="px-4 font-bold">{loggedInUser}</li>
         </ul>
- 
+      </div>
     </div>
-    </div>
-
   );
 };
 export default Header;

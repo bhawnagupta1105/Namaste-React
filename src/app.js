@@ -11,8 +11,9 @@ import RestroMenu from "./Components/RestroMenu";
 import { createBrowserRouter , RouterProvider ,Outlet} from "react-router-dom";
 import UserContext from "./utils/UserContext";
 import Search from "./Components/Search";
-// import { Provider } from "react-redux";
-// import appStore from "./utils/appStore"
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore"
+import Cart from "./Components/Cart";
 
 const Grocery = lazy(() => import("./Components/Grocery"));
 const Footer = () => {
@@ -32,7 +33,8 @@ const AppLayout = () => {
     setUserName(data.name)
   },[]);
   return (
-   
+   <Provider store={appStore}>
+
       <UserContext.Provider value = {{loggedInUser:UserName,setUserName}}>
       <div className="app">
         <Header/>
@@ -40,6 +42,7 @@ const AppLayout = () => {
         <Footer/>
     </div>
       </UserContext.Provider>
+   </Provider>
 
   );
 };
@@ -72,6 +75,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/restaurants/:resId",
         element: <RestroMenu/>
+      },
+      {
+        path: "/cart",
+        element: <Cart/>
       }
     ],
       errorElement: <Error/>
